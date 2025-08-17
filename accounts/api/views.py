@@ -1,7 +1,8 @@
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import AllowAny
-from rest_framework.authentication import BasicAuthentication
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from accounts.models import User
 from accounts.enums import UserRole
@@ -11,7 +12,11 @@ from accounts.api.serializers import UserSerializer
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
-    authentication_classes = [BasicAuthentication]
+    authentication_classes = [
+        BasicAuthentication,
+        SessionAuthentication,
+        JWTAuthentication,
+    ]
     permission_classes = [IsOwner]
     serializer_class = UserSerializer
 
