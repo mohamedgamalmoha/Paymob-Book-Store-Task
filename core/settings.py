@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_spectacular',
     'rest_flex_fields',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -93,6 +94,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+AUTH_USER_MODEL = 'accounts.User'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
