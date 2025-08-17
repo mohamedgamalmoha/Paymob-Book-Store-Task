@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'rest_flex_fields',
     'accounts',
+    'books',
 ]
 
 MIDDLEWARE = [
