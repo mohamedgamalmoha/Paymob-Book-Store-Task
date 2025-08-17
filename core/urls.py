@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 
 from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView,
                                    SpectacularJSONAPIView, SpectacularYAMLAPIView)
@@ -26,6 +26,7 @@ from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView, Spe
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('accounts.api.urls'), name='accounts'),
 ]
 
 
