@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
             },
             bases=('accounts.user',),
             managers=[
-                ('objects', accounts.managers.AutherUserManager()),
+                ('objects', accounts.managers.AuthorUserManager()),
             ],
         ),
         migrations.CreateModel(

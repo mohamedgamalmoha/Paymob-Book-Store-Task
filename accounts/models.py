@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
 from accounts.enums import UserRole
-from accounts.managers import CustomUserManager, AutherUserManager, ReviewerUserManager
+from accounts.managers import CustomUserManager, AuthorUserManager, ReviewerUserManager
 
 
 class User(AbstractUser):
@@ -24,10 +24,10 @@ class User(AbstractUser):
         return super().save(*args, **kwargs)
 
 
-class AutherUser(User):
-    base_role = UserRole.AUTHER
+class AuthorUser(User):
+    base_role = UserRole.AUTHOR
 
-    objects = AutherUserManager()
+    objects = AuthorUserManager()
 
     class Meta:
         proxy = True

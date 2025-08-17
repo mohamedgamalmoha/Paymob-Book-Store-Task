@@ -20,11 +20,11 @@ class CustomUserManager(UserManager):
         return super().create_superuser(username, email, password, **extra_fields)
 
 
-class AutherUserManager(CustomUserManager):
+class AuthorUserManager(CustomUserManager):
 
     def get_queryset(self, *args, **kwargs):
         results = super().get_queryset(*args, **kwargs)
-        return results.filter(role=UserRole.AUTHER)
+        return results.filter(role=UserRole.AUTHOR)
 
 
 class ReviewerUserManager(CustomUserManager):

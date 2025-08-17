@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-from accounts.models import AutherUser, ReviewerUser
+from accounts.models import AuthorUser, ReviewerUser
 from books.enums import LanguageChoices, ReasonChoices
 
 
@@ -15,7 +15,7 @@ class Book(models.Model):
     title = models.CharField(max_length=200, verbose_name=_('Title'))
     slug = models.SlugField(max_length=250, unique=True, verbose_name=_('Slug'))
     author = models.ForeignKey(
-        AutherUser,
+        AuthorUser,
         on_delete=models.CASCADE,
         related_name='books',
         verbose_name=_('Author'),
