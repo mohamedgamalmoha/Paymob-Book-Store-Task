@@ -25,6 +25,8 @@ env = environ.Env(
     RDS_PASSWORD=(str, ''),
     RDS_HOSTNAME=(str, ''),
     RDS_PORT=(int, 0000),
+    CORS_ALLOW_ALL_ORIGINS=(bool, False),
+    CORS_ALLOW_CREDENTIALS=(bool, False),
 )
 environ.Env.read_env()
 
@@ -394,7 +396,7 @@ JAZZMIN_SETTINGS = {
     "site_header": _("Book Store"),
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": '_',
+    "site_brand": 'Dashboard',
 
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": "images/logo.jpg",
@@ -486,7 +488,7 @@ JAZZMIN_SETTINGS = {
     # UI Tweaks #
     #############
     # Relative paths to custom CSS/JS scripts (must be present in static files)
-    "custom_css": None,
+    "custom_css": "css/jazzmin.css",
     "custom_js": None,
     # Whether to link font from fonts.googleapis.com (use custom_css to supply font otherwise)
     "use_google_fonts_cdn": True,
@@ -506,7 +508,7 @@ JAZZMIN_SETTINGS = {
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {},
     # Add a language dropdown into the admin
-    "language_chooser": True,
+    "language_chooser": False,
 }
 
 # CORS Origin Settings
