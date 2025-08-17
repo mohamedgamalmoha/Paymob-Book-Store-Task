@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 from books.models import Book, Review, Favorites
 from accounts.utils import is_author, is_reviewer
@@ -47,3 +47,13 @@ class IsOwner(BasePermission):
         if isinstance(obj, Favorites):
             return request.user == obj.user
         return False
+
+
+class ReadOnly(BasePermission):
+
+    def has_permission(self, request, view):
+        return bool(
+            request.method in SAFE_METHODS and
+            request.user and
+            request.user.is_authenticated
+        )
