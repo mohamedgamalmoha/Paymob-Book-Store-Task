@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.core import exceptions as django_exceptions
 from django.contrib.auth.password_validation import validate_password
 
@@ -29,6 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         return data
 
+    @transaction.atomic
     def create(self, validated_data):
         return User.objects.create_user(
             ** validated_data
