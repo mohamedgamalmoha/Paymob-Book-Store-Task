@@ -3,11 +3,12 @@ from django.core import exceptions as django_exceptions
 from django.contrib.auth.password_validation import validate_password
 
 from rest_framework import serializers
+from rest_flex_fields import FlexFieldsModelSerializer
 
 from accounts.models import User
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(FlexFieldsModelSerializer):
 
     class Meta:
         model = User
@@ -15,6 +16,11 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ('is_active', 'role', 'last_login', 'date_joined')
         extra_kwargs = {
             'password': {'write_only': True}
+        }
+        expandable_fields = {
+            'books': ('books.api.serializers.BooksSerializer', {'many': True}),
+            'reviews': ('books.api.serializers.ReviewSerializer', {'many': True}),
+            'favorites': ('books.api.serializers.FavoritesSerializer', {'many': True}),
         }
 
     def validate(self, data):
