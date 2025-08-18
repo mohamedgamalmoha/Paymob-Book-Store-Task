@@ -9,14 +9,16 @@ from accounts.managers import CustomUserManager, AuthorUserManager, ReviewerUser
 class User(AbstractUser):
     base_role = UserRole.OTHER
 
-    role = models.PositiveSmallIntegerField(choices=UserRole.choices, verbose_name=_('Role'))
+    role = models.PositiveSmallIntegerField(
+        choices=UserRole.choices, verbose_name=_("Role")
+    )
 
     objects = CustomUserManager()
 
     class Meta:
-        verbose_name = _('User')
-        verbose_name_plural = _('Users')
-        ordering = ('date_joined', )
+        verbose_name = _("User")
+        verbose_name_plural = _("Users")
+        ordering = ("date_joined",)
 
     def save(self, *args, **kwargs):
         if not self.pk:

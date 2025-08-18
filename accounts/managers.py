@@ -13,9 +13,7 @@ class CustomUserManager(UserManager):
         extra_fields.setdefault("role", UserRole.ADMIN)
 
         if extra_fields.get("role") is not UserRole.ADMIN:
-            raise ValueError(
-                _("Superuser must has admin role")
-            )
+            raise ValueError(_("Superuser must has admin role"))
 
         return super().create_superuser(username, email, password, **extra_fields)
 

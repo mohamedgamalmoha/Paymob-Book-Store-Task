@@ -12,15 +12,13 @@ class UserSerializer(FlexFieldsModelSerializer):
 
     class Meta:
         model = User
-        exclude = ('is_superuser', 'is_staff', 'groups', 'user_permissions')
-        read_only_fields = ('is_active', 'role', 'last_login', 'date_joined')
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
+        exclude = ("is_superuser", "is_staff", "groups", "user_permissions")
+        read_only_fields = ("is_active", "role", "last_login", "date_joined")
+        extra_kwargs = {"password": {"write_only": True}}
         expandable_fields = {
-            'books': ('books.api.serializers.BooksSerializer', {'many': True}),
-            'reviews': ('books.api.serializers.ReviewSerializer', {'many': True}),
-            'favorites': ('books.api.serializers.FavoritesSerializer', {'many': True}),
+            "books": ("books.api.serializers.BooksSerializer", {"many": True}),
+            "reviews": ("books.api.serializers.ReviewSerializer", {"many": True}),
+            "favorites": ("books.api.serializers.FavoritesSerializer", {"many": True}),
         }
 
     def validate(self, data):
@@ -30,14 +28,10 @@ class UserSerializer(FlexFieldsModelSerializer):
         try:
             validate_password(password, user)
         except django_exceptions.ValidationError as e:
-            raise serializers.ValidationError(
-                {"password": e}
-            )
+            raise serializers.ValidationError({"password": e})
 
         return data
 
     @transaction.atomic
     def create(self, validated_data):
-        return User.objects.create_user(
-            ** validated_data
-        )
+        return User.objects.create_user(**validated_data)

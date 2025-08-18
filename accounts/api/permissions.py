@@ -13,9 +13,7 @@ class IsAuthor(BasePermission):
 
     def has_permission(self, request, view):
         return bool(
-            request.user and
-            request.user.is_authenticated and
-            is_author(request.user)
+            request.user and request.user.is_authenticated and is_author(request.user)
         )
 
 
@@ -23,19 +21,14 @@ class IsReviewer(BasePermission):
 
     def has_permission(self, request, view):
         return bool(
-            request.user and
-            request.user.is_authenticated and
-            is_reviewer(request.user)
+            request.user and request.user.is_authenticated and is_reviewer(request.user)
         )
 
 
 class IsOwner(BasePermission):
 
     def has_permission(self, request, view):
-        return bool(
-            request.user and
-            request.user.is_authenticated
-        )
+        return bool(request.user and request.user.is_authenticated)
 
     def has_object_permission(self, request, view, obj):
         if isinstance(obj, User):
@@ -53,7 +46,7 @@ class ReadOnly(BasePermission):
 
     def has_permission(self, request, view):
         return bool(
-            request.method in SAFE_METHODS and
-            request.user and
-            request.user.is_authenticated
+            request.method in SAFE_METHODS
+            and request.user
+            and request.user.is_authenticated
         )

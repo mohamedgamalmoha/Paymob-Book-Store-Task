@@ -23,16 +23,16 @@ class BookViewSet(FlexFieldsMixin, ModelViewSet):
     serializer_class = BookSerializer
     filter_backends = [FlexFieldsFilterBackend] + api_settings.DEFAULT_FILTER_BACKENDS
     filterset_class = BookFilterSet
-    lookup_field = 'slug'
-    permitted_expands = ['author', 'reviews']
+    lookup_field = "slug"
+    permitted_expands = ["author", "reviews"]
     permit_list_expands = permitted_expands
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        if is_expanded(self.request, 'author'):
-            queryset = queryset.select_related('author')
-        if is_expanded(self.request, 'reviews'):
-            queryset = queryset.prefetch_related('reviews')
+        if is_expanded(self.request, "author"):
+            queryset = queryset.select_related("author")
+        if is_expanded(self.request, "reviews"):
+            queryset = queryset.prefetch_related("reviews")
         return queryset
 
     def perform_create(self, serializer):
@@ -50,15 +50,15 @@ class ReviewViewSet(FlexFieldsMixin, ModelViewSet):
     serializer_class = ReviewSerializer
     filter_backends = [FlexFieldsFilterBackend] + api_settings.DEFAULT_FILTER_BACKENDS
     filterset_class = ReviewFilterSet
-    permitted_expands = ['book', 'reviewer']
+    permitted_expands = ["book", "reviewer"]
     permit_list_expands = permitted_expands
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        if is_expanded(self.request, 'book'):
-            queryset = queryset.select_related('book')
-        if is_expanded(self.request, 'reviewer'):
-            queryset = queryset.select_related('reviewer')
+        if is_expanded(self.request, "book"):
+            queryset = queryset.select_related("book")
+        if is_expanded(self.request, "reviewer"):
+            queryset = queryset.select_related("reviewer")
         return queryset
 
     def perform_create(self, serializer):
@@ -76,16 +76,16 @@ class FavoritesViewSet(FlexFieldsMixin, ModelViewSet):
     serializer_class = FavoritesSerializer
     filterset_class = FavoritesFilterSet
     filter_backends = [FlexFieldsFilterBackend] + api_settings.DEFAULT_FILTER_BACKENDS
-    permitted_expands = ['book', 'user']
+    permitted_expands = ["book", "user"]
     permit_list_expands = permitted_expands
 
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.filter(user=self.request.user)
-        if is_expanded(self.request, 'book'):
-            queryset = queryset.select_related('book')
-        if is_expanded(self.request, 'user'):
-            queryset = queryset.select_related('user')
+        if is_expanded(self.request, "book"):
+            queryset = queryset.select_related("book")
+        if is_expanded(self.request, "user"):
+            queryset = queryset.select_related("user")
         return queryset
 
     def perform_create(self, serializer):
