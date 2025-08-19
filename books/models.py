@@ -12,6 +12,9 @@ User = get_user_model()
 
 
 class Book(models.Model):
+    """
+    Represents a book in the library system.
+    """
     title = models.CharField(max_length=200, verbose_name=_("Title"))
     slug = models.SlugField(max_length=250, unique=True, verbose_name=_("Slug"))
     author = models.ForeignKey(
@@ -60,14 +63,23 @@ class Book(models.Model):
             models.Index(fields=["is_available"]),
         ]
 
-    def __str__(self):
-        return f"{self.title} by {self.author}"
+    def __str__(self) -> str:
+        """
+        Returns a string representation of the book.
+        """
+        return str(self.title)
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
+        """
+        Returns the URL for the book detail view.
+        """
         return reverse("book:detail", kwargs={"slug": self.slug})
 
 
 class Review(models.Model):
+    """
+    Represents a review for a book written by a reviewer.
+    """
     book = models.ForeignKey(
         Book, on_delete=models.CASCADE, related_name="reviews", verbose_name=_("Book")
     )
@@ -98,11 +110,17 @@ class Review(models.Model):
             models.Index(fields=["rating"]),
         ]
 
-    def __str__(self):
-        return f"Review by {self.reviewer.username} for {self.book.title}"
+    def __str__(self) -> str:
+        """
+        Returns a string representation of the review.
+        """
+        return f"{self.book} - {self.reviewer}"
 
 
 class Favorites(models.Model):
+    """
+    Represents a user's favorite book with a reason and optional notes.
+    """
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -130,5 +148,8 @@ class Favorites(models.Model):
             models.Index(fields=["book"]),
         ]
 
-    def __str__(self):
-        return f"{self.user.username} favorited {self.book.title}"
+    def __str__(self) -> str:
+        """
+        Returns a string representation of the favorite.
+        """
+        return f"{self.book} - {self.user} - {self.reason}"

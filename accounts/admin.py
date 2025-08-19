@@ -7,6 +7,9 @@ from accounts.models import User
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
+    """
+    Custom User Admin for managing User model in the Django admin interface.
+    """
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),

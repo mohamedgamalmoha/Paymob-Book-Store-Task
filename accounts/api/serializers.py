@@ -21,7 +21,7 @@ class UserSerializer(FlexFieldsModelSerializer):
             "favorites": ("books.api.serializers.FavoritesSerializer", {"many": True}),
         }
 
-    def validate(self, data):
+    def validate(self, data: dict) -> dict:
         user = User(**data)
         password = data.get("password")
 
@@ -33,5 +33,5 @@ class UserSerializer(FlexFieldsModelSerializer):
         return data
 
     @transaction.atomic
-    def create(self, validated_data):
+    def create(self, validated_data: dict) -> User:
         return User.objects.create_user(**validated_data)

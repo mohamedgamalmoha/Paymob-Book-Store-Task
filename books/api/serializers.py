@@ -4,6 +4,9 @@ from books.models import Book, Review, Favorites
 
 
 class BookSerializer(FlexFieldsModelSerializer):
+    """
+    Serializer for the Book model, including expandable fields for author and reviews.
+    """
 
     class Meta:
         model = Book
@@ -16,6 +19,9 @@ class BookSerializer(FlexFieldsModelSerializer):
 
 
 class ReviewSerializer(FlexFieldsModelSerializer):
+    """
+    Serializer for the Review model, including expandable fields for book and reviewer.
+    """
 
     class Meta:
         model = Review
@@ -28,6 +34,9 @@ class ReviewSerializer(FlexFieldsModelSerializer):
 
 
 class FavoritesSerializer(FlexFieldsModelSerializer):
+    """
+    Serializer for the Favorites model, including expandable fields for book and user.
+    """
 
     class Meta:
         model = Favorites
