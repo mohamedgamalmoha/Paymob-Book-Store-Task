@@ -7,7 +7,6 @@ from rest_framework.settings import api_settings
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.serializers import BaseSerializer
 from rest_framework.permissions import BasePermission, AllowAny
-from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_flex_fields.utils import is_expanded
 from rest_flex_fields.views import FlexFieldsMixin
@@ -24,11 +23,7 @@ class UserViewSet(FlexFieldsMixin, ModelViewSet):
     UserViewSet is a viewset for managing User objects.
     """
     queryset = User.objects.all()
-    authentication_classes = [
-        BasicAuthentication,
-        SessionAuthentication,
-        JWTAuthentication,
-    ]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsOwner]
     serializer_class = UserSerializer
     filter_backends = [FlexFieldsFilterBackend] + api_settings.DEFAULT_FILTER_BACKENDS

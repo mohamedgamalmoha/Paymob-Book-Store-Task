@@ -3,7 +3,6 @@ from django.db.models import QuerySet
 from rest_framework.settings import api_settings
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.serializers import BaseSerializer
-from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_flex_fields.utils import is_expanded
 from rest_flex_fields.views import FlexFieldsMixin
 from rest_flex_fields.filter_backends import FlexFieldsFilterBackend
@@ -20,11 +19,7 @@ class BookViewSet(FlexFieldsMixin, ModelViewSet):
     A viewset for viewing and editing book instances.
     """
     queryset = Book.objects.all()
-    authentication_classes = [
-        BasicAuthentication,
-        SessionAuthentication,
-        JWTAuthentication,
-    ]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [ReadOnly | IsAuthor]
     serializer_class = BookSerializer
     filter_backends = [FlexFieldsFilterBackend] + api_settings.DEFAULT_FILTER_BACKENDS
@@ -65,11 +60,7 @@ class ReviewViewSet(FlexFieldsMixin, ModelViewSet):
     A viewset for viewing and editing review instances.
     """
     queryset = Review.objects.all()
-    authentication_classes = [
-        BasicAuthentication,
-        SessionAuthentication,
-        JWTAuthentication,
-    ]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [ReadOnly | IsReviewer]
     serializer_class = ReviewSerializer
     filter_backends = [FlexFieldsFilterBackend] + api_settings.DEFAULT_FILTER_BACKENDS
@@ -110,11 +101,7 @@ class FavoritesViewSet(FlexFieldsMixin, ModelViewSet):
     A viewset for managing user favorites.
     """
     queryset = Favorites.objects.all()
-    authentication_classes = [
-        BasicAuthentication,
-        SessionAuthentication,
-        JWTAuthentication,
-    ]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsOwner]
     serializer_class = FavoritesSerializer
     filterset_class = FavoritesFilterSet
