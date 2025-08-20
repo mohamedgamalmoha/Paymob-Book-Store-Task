@@ -15,12 +15,14 @@ echo "Setting up database..."
 sudo -u postgres psql << 'EOF'
 CREATE DATABASE book_store_db;
 CREATE USER book_store_user WITH PASSWORD 'book_store_password';
+ALTER USER book_store_user WITH CREATEDB;
 ALTER ROLE book_store_user SET client_encoding TO 'utf8';
 ALTER ROLE book_store_user SET timezone TO 'UTC';
 ALTER DATABASE book_store_db OWNER TO book_store_user;
 GRANT ALL PRIVILEGES ON DATABASE book_store_db TO book_store_user;
 \q
 EOF
+
 
 echo "Setup complete!"
 echo "Database: book_store_db"
