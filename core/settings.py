@@ -21,6 +21,7 @@ env = environ.Env(
     ALLOWED_HOSTS=(str, ""),
     RDS_DB_ENGINE=(str, ""),
     RDS_DB_NAME=(str, ""),
+    RDS_TEST_DB_NAME= (str, ""),
     RDS_USERNAME=(str, ""),
     RDS_PASSWORD=(str, ""),
     RDS_HOSTNAME=(str, ""),
@@ -109,6 +110,10 @@ DATABASES = {
         "PASSWORD": env("RDS_PASSWORD"),
         "HOST": env("RDS_HOSTNAME"),
         "PORT": env("RDS_PORT"),
+        'TEST': {
+            'NAME': env('RDS_TEST_DB_NAME'),
+            "MIRROR": "default",
+        },
     },
 }
 
