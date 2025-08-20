@@ -31,7 +31,7 @@ class User(AbstractUser):
             - args: Positional arguments.
             - kwargs: Keyword arguments.
         """
-        if not self.pk:
+        if not self.pk and self.role is None:
             self.role = self.base_role
         return super().save(*args, **kwargs)
 
