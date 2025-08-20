@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.settings import api_settings
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.serializers import BaseSerializer
 from rest_framework.permissions import BasePermission, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_flex_fields.utils import is_expanded
@@ -13,7 +12,6 @@ from rest_flex_fields.views import FlexFieldsMixin
 from rest_flex_fields.filter_backends import FlexFieldsFilterBackend
 
 from accounts.models import User
-from accounts.enums import UserRole
 from accounts.api.permissions import IsOwner
 from accounts.api.serializers import UserSerializer
 
@@ -69,17 +67,6 @@ class UserViewSet(FlexFieldsMixin, ModelViewSet):
         Returns the current user from the request.
         """
         return self.request.user
-
-    def perform_create(self, serializer: BaseSerializer) -> None:
-        """
-        Saves the serializer with the role set to REVIEWER when creating a new user.
-        This method is called when a new user is created. It sets the role of the user to
-        REVIEWER by default.
-
-        Args:
-            - serializer (UserSerializer): The serializer instance containing the user data.
-        """
-        serializer.save(role=UserRole.REVIEWER)
 
     @action(["GET"], detail=False, url_name="me", url_path="me")
     def me(self, request: Request, *args, **kwargs) -> Response:
