@@ -11,7 +11,7 @@ class BookSerializer(FlexFieldsModelSerializer):
     class Meta:
         model = Book
         exclude = ()
-        read_only_fields = ("created_at", "updated_at")
+        read_only_fields = ("author", "created_at", "updated_at")
         expandable_fields = {
             "author": ("accounts.api.serializers.UserSerializer", {"many": False}),
             "reviews": ("books.api.serializers.ReviewSerializer", {"many": True}),
@@ -26,7 +26,7 @@ class ReviewSerializer(FlexFieldsModelSerializer):
     class Meta:
         model = Review
         exclude = ()
-        read_only_fields = ("created_at", "updated_at")
+        read_only_fields = ("reviewer", "created_at", "updated_at")
         expandable_fields = {
             "book": ("books.api.serializers.BookSerializer", {"many": False}),
             "reviewer": ("accounts.api.serializers.UserSerializer", {"many": False}),
