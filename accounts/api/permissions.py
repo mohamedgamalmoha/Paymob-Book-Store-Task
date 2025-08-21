@@ -32,6 +32,22 @@ class IsAuthor(BasePermission):
             request.user and request.user.is_authenticated and is_author(request.user)
         )
 
+    def has_object_permission(self, request: Request, view: View, obj: Model) -> bool:
+        """
+        Check if the user is the author of the object.
+
+        Args:
+            - request (Request): The request object.
+            - view (View): The view being accessed.
+            - obj (Model): The object being accessed.
+
+        Returns:
+            - bool: True if the user is the author of the object, False otherwise.
+        """
+        if isinstance(obj, Book):
+            return request.user == obj.author
+        return False
+
 
 class IsReviewer(BasePermission):
     """
@@ -52,6 +68,22 @@ class IsReviewer(BasePermission):
         return bool(
             request.user and request.user.is_authenticated and is_reviewer(request.user)
         )
+
+    def has_object_permission(self, request: Request, view: View, obj: Model) -> bool:
+        """
+        Check if the user is the reviewer of the object.
+
+        Args:
+            - request (Request): The request object.
+            - view (View): The view being accessed.
+            - obj (Model): The object being accessed.
+
+        Returns:
+            - bool: True if the user is the reviewer of the object, False otherwise.
+        """
+        if isinstance(obj, Review):
+            return request.user == obj.reviewer
+        return False
 
 
 class IsOwner(BasePermission):
@@ -116,3 +148,17 @@ class ReadOnly(BasePermission):
             and request.user
             and request.user.is_authenticated
         )
+
+    def has_object_permission(self, request, view, obj):
+        """
+        Check if the request method is safe (GET, HEAD, OPTIONS) and the user is authenticated.
+
+        Args:
+            - request (Request): The request object.
+            - view (View): The view being accessed.
+            - obj (Model): The object being accessed.
+
+        Returns:
+            - bool: True if the request method is safe and the user is authenticated, False otherwise
+        """
+        return request.method in SAFE_METHODS
