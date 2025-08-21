@@ -55,6 +55,8 @@ class UserSerializer(FlexFieldsModelSerializer):
             validate_password(password, user)
         except django_exceptions.ValidationError as e:
             raise serializers.ValidationError({"password": e})
+        except AttributeError:
+            ...
 
         return data
 
